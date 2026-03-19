@@ -1,99 +1,71 @@
-# 每日总结
+# MEMORY.md - 长期记忆
 
-> 每天上线第一件事：先读这个文件 📖
+## 小红书发布标准流程 v2.0
 
----
+**每天找我发小红书，按以下流程走：**
 
-## 2026-03-18
+1. **内容策划** — 你提供主题，我写标题（≤20字）+ 正文 + 话题标签
+2. **配图** — 你发来图片，直接使用（支持1-9张）
+3. **预览确认** — 展示完整预览，你确认后发布
+4. **发布** — 检查Cookie有效期，有效则直接发（仅自己可见）；过期联系你提供
 
-### 📱 小红书发布流程总结（避坑指南）
-
-**成功流程：**
-1. 打开发布页面（用户已登录）
-2. 用户上传图片
-3. AI填写标题和正文（browser evaluate）
-4. AI设置权限为"仅自己可见"
-5. 用户确认后点击发布
-
-**避坑总结：**
-| 坑 | 解决方案 |
-|---|---|
-| 发布URL变了 | 认准：`https://creator.xiaohongshu.com/publish/publish?from=menu&target=image` |
-| 浏览器是全新会话 | 需要用户手动登录 |
-| 图片上传受限 | 让用户手动上传 |
-| 点击没反应 | 用 `browser evaluate` 执行点击 |
-| Cookie签名失败 | 用浏览器手动发布更稳定 |
-
-**关键教训：**
-- 浏览器登录状态不跨会话保持
-- 图片上传建议用户手动操作
-- 先snapshot获取元素ref，再用click
-- 详细流程见：`~/.openclaw/workspace/skills/xiaohongshu-ops/references/xhs-publish-flows.md`
-
-### 🎉 今日成果
-- 成功发布OPPO Find N6笔记到草稿（仅自己可见）
-- 标题：OPPO Find N6 震撼发布！9999起
-- 内容：发布会信息、价格、核心亮点
+**注意事项：**
+- 标题 ≤ 20字（含emoji），超出会被截断
+- 正文保持简洁，短句短段
+- 默认仅自己可见，不发 --public
 
 ---
 
-## 2026-03-17
+## 小红书技术修复记录
 
-### 🎉 小红书笔记发布成功
-- 标题：🪴在家办公桌面改造
-- 主题：植物风 botanical
-- 内容：关于在家办公桌面植物布置的分享
-- 权限：仅自己可见（方便审核）
-- 标签：#AI编辑
+**publish_xhs.py sign_func 修复：**
+- 参数签名：`(uri, data=None, a1="", b1="", web_session="")`
+- 内部调用：`local_sign(uri, data, a1=a1 or cookies.get('a1', ''))`
+- 原因：xhs SDK 调用时传了 web_session 参数，原版 sign_func 不兼容
 
-### 🛠️ 创建的技能/Skill
-- **GitHub仓库**：ElaineXie-CU/Elaine-openclaw-skills
-- 本地Skill路径：/Users/yichenxie/Auto-Redbook-Skills
-- 已安装的skills：
-  - xiaohongshu-ops（小红书运营）
-  - auto-redbook-skills（小红书图片生成，8种主题）
-
-### ⏰ 定时任务
-- 每天22:02自动更新skill到GitHub
-- 更新后通过飞书通知
-
-### 📚 学到的东西
-1. 小红书发布页面URL：`https://creator.xiaohongshu.com/publish/publish?from=menu&target=image`
-2. 登录状态需要用Cookie保持
-3. 标题需要手动填写（自动化有限制）
-4. 权限设置和AI编辑标签
-
-### 💻 Mac技巧
-- 显示隐藏文件：`Cmd + Shift + .`
-- 永久显示隐藏文件：
-  ```bash
-  defaults write com.apple.finder AppleShowAllFiles -bool TRUE && killall Finder
-  ```
-
-### 📱 小红书相关
-- 发布页面URL：`https://creator.xiaohongshu.com/publish/publish?from=menu&target=image`
-- 图片生成路径：`~/.openclaw/workspace/skills/auto-redbook-skills/`
-
-### 📝 今日经验（2026-03-18）
-- 成功发布OPPO Find N6笔记到草稿（仅自己可见）
-- 避坑：浏览器全新会话需要手动登录、图片让用户手动上传更稳定
-
-### 📁 生成的图片路径
-```
-~/.openclaw/workspace/skills/auto-redbook-skills/
-├── cover.png
-├── card_1.png ~ card_5.png
-```
+**Cookie 配置：**
+- 路径：`skills/auto-redbook-skills/.env`
+- 必需字段：`a1` + `web_session`
+- 过期后联系老板重新提供
 
 ---
 
-## 关于我（长盛易辰 2.0）
+## 飞盘社 2026 年活动信息
 
-- **名字：** 长盛易辰 2.0
-- **个性：** 温暖、靠谱、偶尔抖机灵
-- **Emoji：** 🦞（OpenClaw小龙虾）
-- **特点：** 每天上线先读 memory/memory.md
+- 活动日期：3月24日（周二）19:00-21:00
+- 地点：北京汇文中学【足球场】
+- 会费：188元/年
+- 新增服务：影像记录留存
+- 召集令文案已写好
 
 ---
 
-> 💡 每天结束后，把当天的重要事项、学习内容、工作进展等记录在这里。这样每天上线就能快速回顾前一天的情况了！
+## 演示相关
+
+- 下周一有演示，名字暂定「AI种草现场」或「爆款制造机」
+- 要求：和宣传、宣发有关，体现小红书
+
+---
+
+## 定时任务
+
+- 每天 22:02 自动同步 `Elaine-openclaw-skills` → 本地 `xiaohongshu-ops`
+- 然后提交 git 并推送，飞书通知结果
+
+---
+
+## 老板信息
+
+- 每天找我发一篇小红书
+- 飞盘社副社长
+- 男生（2026-03-19 确定）
+- 不嫌我啰嗦，随便问
+
+---
+
+## 关于我
+
+- 名字：长盛易辰 2.0
+- Emoji：🦞
+- 男生
+- 每天上线先读 memory/memory.md

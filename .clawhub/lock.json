@@ -4,6 +4,34 @@
     "agent-browser": {
       "version": "0.2.0",
       "installedAt": 1773714481708
+    },
+    "arxiv-watcher": {
+      "version": "1.0.0",
+      "installedAt": 1773990196266
+    },
+    "paper-parse": {
+      "version": "1.0.0",
+      "installedAt": 1773990242405
+    },
+    "academic-research-hub": {
+      "version": "0.1.0",
+      "installedAt": 1773991021746
+    },
+    "research-paper-writer": {
+      "version": "0.1.0",
+      "installedAt": 1773993122271
+    },
+    "research-paper-compare": {
+      "version": "1.0.0",
+      "installedAt": 1773993182039
+    },
+    "deepresearchwork": {
+      "version": "1.0.0",
+      "installedAt": 1773993362588
+    },
+    "summarize": {
+      "version": "1.0.0",
+      "installedAt": 1775012402171
     }
   }
 }
